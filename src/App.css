@@ -1,0 +1,203 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background: #f3f4f6;
+}
+
+/* =========================
+   SIDEBAR FIJO
+========================= */
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 220px;
+  height: 100vh;
+  background: #0b1b3a;
+  color: white;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+}
+
+.sidebar h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+.sidebar a {
+  text-decoration: none;
+  color: white;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  transition: 0.2s;
+}
+
+.sidebar a:hover {
+  background: #1d3b7a;
+  border-radius: 5px;
+}
+
+/* =========================
+   CONTENIDO DASHBOARD
+========================= */
+
+.dashboard-wrapper {
+  margin-left: 220px;
+  padding: 20px;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* =========================
+   MARCA DE AGUA
+========================= */
+
+.watermark-logo {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 260px;
+  opacity: 0.07;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* =========================
+   TITULO
+========================= */
+
+.dashboard-wrapper h1 {
+  font-size: 18px;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+/* =========================
+   CARDS PRINCIPALES
+========================= */
+
+.dashboard-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.dash-card {
+  flex: 1;
+  min-width: 180px;
+  background: white;
+  padding: 12px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.dash-card h2 {
+  font-size: 13px;
+  margin: 0;
+}
+
+.dash-card p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.dash-icon {
+  font-size: 20px;
+}
+
+/* colores cards */
+.blue { background: #1d4ed8; color: white; }
+.gold { background: #d4a017; color: white; }
+.red { background: #b91c1c; color: white; }
+.orange { background: #f97316; color: white; }
+
+/* =========================
+   DONUT CHART
+========================= */
+
+.chart-doughnut {
+  width: 110px;
+  height: 110px;
+  margin: 10px auto;
+}
+
+/* leyenda morosidad */
+.morosidad-legend {
+  list-style: none;
+  padding: 0;
+  margin-top: 8px;
+  font-size: 11px;
+}
+
+.morosidad-legend li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.legend-box {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+}
+
+/* =========================
+   GRAFICOS BARRA
+========================= */
+
+.dashboard-charts {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  position: relative;
+  z-index: 2;
+}
+
+.chart-container {
+  background: white;
+  padding: 12px;
+  border-radius: 8px;
+  height: 220px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.chart-container h3 {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+  .dashboard-wrapper {
+    margin-left: 0;
+  }
+
+  .dashboard-charts {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-cards {
+    flex-direction: column;
+  }
+}
