@@ -1,203 +1,707 @@
+/* ==========================================================================
+   ESTILOS BASE E INTERFAZ GLOBAL
+   ========================================================================== */
 body, html {
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
-  background: #f3f4f6;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background-color: #f4f7f6; 
 }
 
-/* =========================
-   SIDEBAR FIJO
-========================= */
+.app-container {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+}
 
+.content-container {
+  flex-grow: 1;
+  margin-left: 220px; 
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.page-content {
+  padding: 30px;
+  flex-grow: 1;
+}
+/* ==========================================================================
+   SIDEBAR (MENÚ LATERAL FIJO IZQUIERDO)
+   ========================================================================== */
 .sidebar {
   position: fixed;
   top: 0;
   left: 0;
-  width: 220px;
+  width: 240px; /* Un poco más de aire para los textos largos */
   height: 100vh;
-  background: #0b1b3a;
-  color: white;
-  padding-top: 20px;
+  background-color: #0b1b3a; /* Azul oscuro institucional profundo */
+  color: #ffffff;
+  padding: 24px 0;
   display: flex;
   flex-direction: column;
-  z-index: 10;
+  z-index: 100;
+  box-sizing: border-box;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Contenedor del Logo / Nombre del Colegio */
 .sidebar h2 {
   text-align: center;
-  margin-bottom: 20px;
-  font-size: 18px;
+  margin: 0 0 30px 0;
+  font-size: 1.15rem;
+  letter-spacing: 2px;
+  font-weight: 700;
+  color: #ffffff;
+  padding: 0 20px;
+  text-transform: uppercase;
 }
 
+/* Contenedor de la lista de enlaces */
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px; /* Separación sutil y limpia entre opciones */
+  width: 100%;
+}
+
+/* Enlaces individuales del menú */
 .sidebar a {
   text-decoration: none;
+  color: #94a3b8; /* Gris azulado suave para los estados inactivos */
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px; /* Espacio exacto entre el icono y el texto */
+  font-size: 0.88rem;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+  border-left: 4px solid transparent; /* Línea invisible que se activa en el hover */
+}
+
+/* Estilo para los Iconos FontAwesome */
+.sidebar a i {
+  font-size: 1.05rem;
+  width: 24px; /* Ancho fijo CRÍTICO para que todos los textos inicien en la misma columna */
+  text-align: center;
+  color: #64748b; /* Iconos sutiles por defecto */
+  transition: all 0.2s ease-in-out;
+}
+
+/* Efecto cuando pasas el mouse por encima (Hover) */
+.sidebar a:hover {
+  background: rgba(255, 255, 255, 0.04); /* Fondo ligeramente iluminado */
+  color: #ffffff; /* El texto pasa a blanco puro */
+  border-left-color: #ff9f43; /* Línea naranja elegante a la izquierda */
+}
+
+/* El icono también se ilumina en el hover */
+.sidebar a:hover i {
+  color: #ff9f43; /* El icono se enciende en el naranja corporativo */
+}
+
+/* ==========================================================================
+   BARRA SUPERIOR (TOPBAR AZUL OSCURO)
+   ========================================================================== */
+.topbar {
+  background-color: #0c2540; 
+  height: 65px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.system-title {
+  color: #ffffff;
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.user-actions {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.notifications-icon {
+  position: relative;
+  color: #ffffff;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.notifications-icon .badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: #ff9f43; 
   color: white;
-  padding: 10px 16px;
+  font-size: 0.65rem;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.avatar-placeholder {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 1rem;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-info .name {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.user-info .role {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* ==========================================================================
+   ESTILOS INTERNOS DEL DASHBOARD (BIENVENIDA Y CARDS)
+   ========================================================================== */
+.welcome-section {
+  margin-bottom: 25px;
+}
+
+.welcome-section h2 {
+  font-size: 1.6rem;
+  color: #0c2540;
+  margin: 0 0 4px 0;
+}
+
+.welcome-section p {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.kpi-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+  width: 100%;
+}
+
+.kpi-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 22px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  flex: 1;
+}
+
+.kpi-icon-wrapper {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+}
+
+.kpi-card.students .kpi-icon-wrapper { background-color: #e8f0fe; color: #0c2540; }
+.kpi-card.income .kpi-icon-wrapper { background-color: #fef4e8; color: #a67c00; }
+.kpi-card.overdue .kpi-icon-wrapper { background-color: #fde8e8; color: #dc3545; }
+
+.kpi-card-info h3 {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.kpi-card-info .kpi-value {
+  display: block;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #0c2540;
+  margin: 4px 0;
+}
+
+.kpi-card-info .kpi-link {
+  color: #0c2540;
+  font-size: 0.8rem;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* ==========================================================================
+   ESTRUCTURA DE COLUMNAS (DASHBOARD GRID)
+   ========================================================================== */
+.dashboard-grid {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.grid-main-column {
+  flex: 2; 
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.grid-side-column {
+  flex: 1.1; 
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ==========================================================================
+   GRÁFICOS ESTADÍSTICOS
+   ========================================================================== */
+.charts-container {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+}
+
+.chart-box {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  box-sizing: border-box;
+}
+
+.chart-box.main-chart { flex: 1.8; }
+.chart-box.side-chart { flex: 1.2; }
+
+.chart-box h3 {
+  font-size: 0.95rem;
+  color: #0c2540;
+  text-transform: uppercase;
+  margin: 0 0 15px 0;
+  letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   TARJETAS DE TABLAS E INFORMACIÓN INTERNA
+   ========================================================================== */
+.table-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.table-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.table-card-header h3 {
+  font-size: 0.95rem;
+  color: #0c2540;
+  text-transform: uppercase;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.custom-table-wrapper {
+  overflow-x: auto;
+  width: 100%;
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.88rem;
+}
+
+.custom-table th {
+  color: #64748b;
+  font-weight: 600;
+  padding: 12px 16px;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.custom-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #f1f5f9;
+  color: #334155;
+}
+
+.student-name { font-weight: 600; color: #0c2540; }
+.payment-badge { padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 500; display: inline-block; }
+.payment-badge.transfer { background-color: #e6f7ed; color: #1ea955; }
+.payment-badge.cash { background-color: #fef4e8; color: #a67c00; }
+.payment-badge.mobile { background-color: #e8f0fe; color: #1d4ed8; }
+.debt-amount { color: #dc3545; font-weight: 600; }
+.days-badge { color: #64748b; font-size: 0.85rem; }
+
+.table-footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #0c2540;
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 500;
+  margin-top: 16px;
+}
+
+/* ==========================================================================
+   PRÓXIMOS VENCIMIENTOS
+   ========================================================================== */
+.expiry-list { display: flex; flex-direction: column; gap: 16px; }
+.expiry-item { display: flex; justify-content: space-between; align-items: center; padding-bottom: 14px; border-bottom: 1px solid #f1f5f9; }
+.expiry-item:last-child { border-bottom: none; padding-bottom: 0; }
+.expiry-left { display: flex; align-items: center; gap: 14px; }
+.expiry-icon-box { width: 40px; height: 40px; border-radius: 8px; background-color: #fef4e8; color: #d97706; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+
+.expiry-details h4 { margin: 0; font-size: 0.9rem; color: #0c2540; font-weight: 600; }
+
+.expiry-school-year {
+  margin: 1px 0 3px 0;
+  font-size: 0.75rem;
+  color: #a0aec0;
+  font-weight: 500;
+}
+
+.expiry-details p { margin: 0; font-size: 0.8rem; color: #64748b; }
+.expiry-right { text-align: right; }
+
+.expiry-invoice-box {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  color: #0c2540;
+}
+
+.expiry-invoice-box i {
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.expiry-count { font-size: 0.95rem; font-weight: 700; color: #0c2540; display: block; }
+.expiry-label { font-size: 0.75rem; color: #64748b; }
+
+/* ==========================================================================
+   ACCESOS RÁPIDOS
+   ========================================================================== */
+.quick-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.action-btn {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 16px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.action-btn:hover {
+  border-color: #0c2540;
+  background-color: #f8fafc;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.04);
+}
+
+.action-btn i { font-size: 1.3rem; color: #0c2540; }
+.action-btn.whatsapp:hover i { color: #25d366; }
+.action-btn span { font-size: 0.76rem; font-weight: 500; color: #334155; text-align: center; line-height: 1.2; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .content-container { margin-left: 0; }
+  .sidebar { display: none; }
+  .kpi-row, .dashboard-grid, .charts-container { flex-direction: column; }
+}
+
+/* ==========================================================================
+   ESTILOS ESPECÍFICOS DE LA PÁGINA DE ALUMNOS
+   ========================================================================== */
+
+/* Botón principal azul de acción */
+.btn-primary-action {
+  background-color: #0c2540;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 13px;
-  transition: 0.2s;
+  transition: background-color 0.2s ease;
 }
 
-.sidebar a:hover {
-  background: #1d3b7a;
-  border-radius: 5px;
+.btn-primary-action:hover {
+  background-color: #1a3a60;
 }
 
-/* =========================
-   CONTENIDO DASHBOARD
-========================= */
+/* Tarjeta contenedora de filtros */
+.filter-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 16px 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  width: 100%;
+  box-sizing: border-box;
+}
 
-.dashboard-wrapper {
-  margin-left: 220px;
-  padding: 20px;
+/* Buscador con icono integrado */
+.search-wrapper {
   position: relative;
-  min-height: 100vh;
-}
-
-/* =========================
-   MARCA DE AGUA
-========================= */
-
-.watermark-logo {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 260px;
-  opacity: 0.07;
-  transform: translate(-50%, -50%);
-  z-index: 0;
-  pointer-events: none;
-}
-
-/* =========================
-   TITULO
-========================= */
-
-.dashboard-wrapper h1 {
-  font-size: 18px;
-  margin-bottom: 20px;
-  position: relative;
-  z-index: 2;
-}
-
-/* =========================
-   CARDS PRINCIPALES
-========================= */
-
-.dashboard-cards {
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 20px;
-  position: relative;
-  z-index: 2;
+  align-items: center;
+  max-width: 450px;
+  width: 100%;
 }
 
-.dash-card {
-  flex: 1;
-  min-width: 180px;
-  background: white;
-  padding: 12px;
+.search-icon {
+  position: absolute;
+  left: 14px;
+  color: #94a3b8;
+  font-size: 0.95rem;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 14px 10px 40px;
+  font-size: 0.88rem;
+  border: 1px solid #e2e8f0;
   border-radius: 8px;
+  color: #334155;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.search-input:focus {
+  border-color: #0c2540;
+}
+
+/* Etiquetas de Estatus (Activo / Inactivo) */
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-badge.active {
+  background-color: #e6f7ed;
+  color: #1ea955;
+}
+
+.status-badge.inactive {
+  background-color: #fde8e8;
+  color: #dc3545;
+}
+
+/* Botones de acción en cada fila */
+.action-row-btn {
+  background: none;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
-  gap: 10px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  justify-content: center;
+  cursor: pointer;
+  color: #64748b;
+  transition: all 0.2s ease;
 }
 
-.dash-card h2 {
-  font-size: 13px;
-  margin: 0;
+.action-row-btn:hover {
+  transform: translateY(-1px);
 }
 
-.dash-card p {
-  margin: 0;
-  font-size: 14px;
-  font-weight: bold;
+.action-row-btn.edit:hover {
+  background-color: #e8f0fe;
+  color: #0c2540;
+  border-color: #0c2540;
 }
 
-.dash-icon {
-  font-size: 20px;
+.action-row-btn.view:hover {
+  background-color: #fef4e8;
+  color: #ff9f43;
+  border-color: #ff9f43;
 }
 
-/* colores cards */
-.blue { background: #1d4ed8; color: white; }
-.gold { background: #d4a017; color: white; }
-.red { background: #b91c1c; color: white; }
-.orange { background: #f97316; color: white; }
-
-/* =========================
-   DONUT CHART
-========================= */
-
-.chart-doughnut {
-  width: 110px;
-  height: 110px;
-  margin: 10px auto;
-}
-
-/* leyenda morosidad */
-.morosidad-legend {
-  list-style: none;
-  padding: 0;
-  margin-top: 8px;
-  font-size: 11px;
-}
-
-.morosidad-legend li {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 4px;
-}
-
-.legend-box {
-  width: 10px;
-  height: 10px;
+/* Etiquetas de Métodos de Pago */
+.payment-badge {
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
   display: inline-block;
 }
 
-/* =========================
-   GRAFICOS BARRA
-========================= */
-
-.dashboard-charts {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  position: relative;
-  z-index: 2;
+.payment-badge.transfer {
+  background-color: #e0e7ff;
+  color: #3730a3;
 }
 
-.chart-container {
-  background: white;
-  padding: 12px;
+.payment-badge.cash {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.payment-badge.mobile {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+/* ==========================================================================
+   ESTILOS GENERALES PARA VENTANAS FLOTANTES (MODALES INTERACTIVOS)
+   ========================================================================== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(15, 23, 42, 0.6); /* Capa oscura traslúcida estilo cinemático */
+  backdrop-filter: blur(4px); /* Difumina ligeramente el fondo */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-card {
+  background: #ffffff;
+  width: 100%;
+  max-width: 440px;
+  border-radius: 14px;
+  padding: 28px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  animation: fadeInModal 0.2s ease-out;
+}
+
+.modal-card h3 {
+  margin: 0 0 20px 0;
+  color: #0c2540;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.modal-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.modal-field label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #475569;
+}
+
+.modal-field input, .modal-field select {
+  padding: 10px 12px;
+  font-size: 0.88rem;
+  border: 1px solid #e2e8f0;
   border-radius: 8px;
-  height: 220px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  outline: none;
+  background: #fff;
 }
 
-.chart-container h3 {
-  font-size: 14px;
-  margin-bottom: 10px;
+.modal-field input:focus {
+  border-color: #0c2540;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+  border-top: 1px solid #f1f5f9;
+  padding-top: 16px;
+}
 
-@media (max-width: 900px) {
-  .dashboard-wrapper {
-    margin-left: 0;
-  }
+.btn-cancel {
+  background: #f1f5f9;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  color: #64748b;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
 
-  .dashboard-charts {
-    grid-template-columns: 1fr;
-  }
+.btn-submit-modal {
+  background: #0c2540;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
 
-  .dashboard-cards {
-    flex-direction: column;
-  }
+@keyframes fadeInModal {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
 }
