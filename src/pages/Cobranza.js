@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
 export default function Cobranza() {
-  // Lista simulada de cuentas por cobrar
-  const [deudores, setDeudores] = useState([
+  // Lista simulada de cuentas por cobrar (Sin setDeudores para limpiar advertencias de ESLint)
+  const [deudores] = useState([
     { id: "ALU-2026-002", alumno: "Juan Pérez", representante: "Pedro Pérez", mesesVencidos: 4, diasAtraso: 95, deudaTotal: 140 },
-    { id: "ALU-2026-001", nombre: "María González", representante: "Elena González", mesesVencidos: 3, diasAtraso: 60, deudaTotal: 105 },
+    { id: "ALU-2026-001", alumno: "María González", representante: "Elena González", mesesVencidos: 3, diasAtraso: 60, deudaTotal: 105 },
     { id: "ALU-2026-003", alumno: "Carlos Romero", representante: "Luisa Romero", mesesVencidos: 2, diasAtraso: 45, deudaTotal: 70 },
     { id: "ALU-2026-004", alumno: "Ana Martínez", representante: "José Martínez", mesesVencidos: 1, diasAtraso: 30, deudaTotal: 35 },
     { id: "ALU-2026-005", alumno: "Luis Fernández", representante: "Marta Fernández", mesesVencidos: 1, diasAtraso: 15, deudaTotal: 35 }
@@ -12,12 +12,13 @@ export default function Cobranza() {
 
   const [filtroBusqueda, setFiltroBusqueda] = useState("");
 
+  // Filtrado en tiempo real por nombre de alumno o ID
   const deudoresFiltrados = deudores.filter(d => 
-    d.alumno?.toLowerCase().includes(filtroBusqueda.toLowerCase()) ||
+    d.alumno.toLowerCase().includes(filtroBusqueda.toLowerCase()) ||
     d.id.toLowerCase().includes(filtroBusqueda.toLowerCase())
   );
 
-  // Función simulada para simular el aviso de cobro
+  // Función para simular el aviso de cobro
   const enviarRecordatorio = (alumno) => {
     alert(`Enviando recordatorio de pago vía WhatsApp/Correo a la representación de: ${alumno}`);
   };
@@ -76,34 +77,42 @@ export default function Cobranza() {
               </tr>
             </thead>
             <tbody>
-              {deudoresFiltrados.map((item, index) => (
-                <tr key={index}>
-                  <td style={{ color: '#64748b', fontSize: '0.85rem' }}>{item.id}</td>
-                  <td className="student-name" style={{ fontWeight: '600' }}>{item.alumno || "María González"}</td>
-                  <td>{item.representante}</td>
-                  <td style={{ textAlign: 'center' }}>
-                    <span style={{ background: '#fef3c7', color: '#d97706', padding: '2px 8px', borderRadius: '4px', fontSize: '0.8rem', fontWeight: '600' }}>
-                      {item.mesesVencidos}
-                    </span>
-                  </td>
-                  <td style={{ textAlign: 'center' }}>
-                    <span className="days-badge" style={{ backgroundColor: item.diasAtraso >= 90 ? '#fde8e8' : '#fff3cd', color: item.diasAtraso >= 90 ? '#dc3545' : '#856404', padding: '4px 8px', borderRadius: '6px', fontSize: '0.8rem', fontWeight: '600' }}>
-                      {item.diasAtraso} días
-                    </span>
-                  </td>
-                  <td style={{ fontWeight: '700', color: '#dc3545' }}>${item.deudaTotal}</td>
-                  <td style={{ textAlign: 'center' }}>
-                    <button 
-                      onClick={() => enviarRecordatorio(item.alumno || "María González")}
-                      className="action-row-btn view" 
-                      style={{ margin: '0 auto', width: 'auto', padding: '0 10px', gap: '6px', fontSize: '0.8rem' }}
-                      title="Notificar Deuda"
-                    >
-                      <i className="fab fa-whatsapp" style={{ color: '#25D366' }}></i> Notificar
-                    </button>
+              {deudoresFiltrados.length > 0 ? (
+                deudoresFiltrados.map((item, index) => (
+                  <tr key={index}>
+                    <td style={{ color: '#64748b', fontSize: '0.85rem' }}>{item.id}</td>
+                    <td className="student-name" style={{ fontWeight: '600' }}>{item.alumno}</td>
+                    <td>{item.representante}</td>
+                    <td style={{ textAlign: 'center' }}>
+                      <span style={{ background: '#fef3c7', color: '#d97706', padding: '2px 8px', borderRadius: '4px', fontSize: '0.8rem', fontWeight: '600' }}>
+                        {item.mesesVencidos}
+                      </span>
+                    </td>
+                    <td style={{ textAlign: 'center' }}>
+                      <span className="days-badge" style={{ backgroundColor: item.diasAtraso >= 90 ? '#fde8e8' : '#fff3cd', color: item.diasAtraso >= 90 ? '#dc3545' : '#856404', padding: '4px 8px', borderRadius: '6px', fontSize: '0.8rem', fontWeight: '600' }}>
+                        {item.diasAtraso} días
+                      </span>
+                    </td>
+                    <td style={{ fontWeight: '700', color: '#dc3545' }}>${item.deudaTotal}</td>
+                    <td style={{ textAlign: 'center' }}>
+                      <button 
+                        onClick={() => enviarRecordatorio(item.alumno)}
+                        className="action-row-btn view" 
+                        style={{ margin: '0 auto', width: 'auto', padding: '0 10px', gap: '6px', fontSize: '0.8rem' }}
+                        title="Notificar Deuda"
+                      >
+                        <i className="fab fa-whatsapp" style={{ color: '#25D366' }}></i> Notificar
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="7" style={{ textAlign: 'center', padding: '30px', color: '#64748b' }}>
+                    No se encontraron registros que coincidan con la búsqueda.
                   </td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </div>
